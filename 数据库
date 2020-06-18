@@ -1,0 +1,170 @@
+DROP DATABASE IF EXISTS `XingyuXingxun`;
+CREATE DATABASE `XingyuXingxun` CHARACTER SET 'utf8mb4' COLLATE 'utf8mb4_0900_ai_ci';
+
+use xingyuxingxun;
+
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE `xingyuxingxun`.`account`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `account` int(12) NOT NULL COMMENT '账号',
+  `createTime` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '账号被创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `xingyuxingxun`.`user`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '用户编号',
+  `account_id` int NOT NULL COMMENT '对应账号编号',
+  `pwd` varchar(20) CHARACTER SET utf8mb4 NOT NULL COMMENT '密码',
+  `real_name` varchar(50) NOT NULL COMMENT '真实姓名',
+  `virtual_name` varchar(50) NOT NULL COMMENT '昵称',
+  `address_id` int NOT NULL COMMENT '地址表编号',
+  `prefer_id` int NOT NULL COMMENT '喜欢的聊天方式',
+  `icon_id` int NULL DEFAULT 0 COMMENT '头像编号',
+  `status_id` int NOT NULL DEFAULT 0 COMMENT '用户状态',
+  `create_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `country`;
+CREATE TABLE `xingyuxingxun`.`country`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '国家名称',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `province`;
+CREATE TABLE `xingyuxingxun`.`province`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '省/市/州/其他名称',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `city`;
+CREATE TABLE `xingyuxingxun`.`city`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '城市名称',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `chat_method`;
+CREATE TABLE `xingyuxingxun`.`chat_method`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '聊天方式名称',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `icon`;
+CREATE TABLE `xingyuxingxun`.`icon`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '头像图片',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE `xingyuxingxun`.`status`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '用户状态内容',
+  `change_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '状态改变时间',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `friend`;
+CREATE TABLE `xingyuxingxun`.`friend`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `id_youself` int NOT NULL COMMENT '自己的id',
+  `id_friend` int NOT NULL COMMENT '好友id',
+  `remarks` varchar(255) CHARACTER SET utf8mb4 NULL DEFAULT '' COMMENT '备注',
+  `how_to_add` int NOT NULL COMMENT '如何添加',
+  `friend_class` int NOT NULL DEFAULT 0 COMMENT '好友类别',
+  `create_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '关系创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `add_way`;
+CREATE TABLE `xingyuxingxun`.`add_way`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `content` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '添加方式内容',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `friend_class`;
+CREATE TABLE `xingyuxingxun`.`friend_class`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `id_self` int(12) NOT NULL COMMENT '自己id',
+  `class_name` varchar(255) NOT NULL COMMENT '组别名称',
+  `capacity` int NULL DEFAULT 0 AUTO_INCREMENT COMMENT '容量',
+  `create_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `xingyuxingxun`.`message`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `msg_class` int NOT NULL COMMENT '消息类型',
+  `content` varchar(255) NOT NULL COMMENT '消息内容',
+  `from_id` int NOT NULL COMMENT '来自',
+  `to_id` int NOT NULL COMMENT '发往',
+  `receive_status` int NOT NULL DEFAULT 1 COMMENT '接收状态',
+  `send_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `msg_class`;
+CREATE TABLE `xingyuxingxun`.`msg_class`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '消息类型',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `receive_status`;
+CREATE TABLE `xingyuxingxun`.`receive_status`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '接收状态',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `group`;
+CREATE TABLE `xingyuxingxun`.`group`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `group_class` int NOT NULL COMMENT '群组类别表',
+  `title` int NOT NULL COMMENT '群组讨论话题',
+  `create_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `group_owner_id` int NOT NULL COMMENT '群主编号',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `group_class`;
+CREATE TABLE `xingyuxingxun`.`group_class`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '' COMMENT '群组类别',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `title`;
+CREATE TABLE `xingyuxingxun`.`title`  (
+  `id` int NOT NULL  AUTO_INCREMENT COMMENT '编号',
+  `content` varchar(255) NOT NULL COMMENT '话题内容',
+  `hot` int NOT NULL COMMENT '热度',
+  `create_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `groupUser`;
+CREATE TABLE `xingyuxingxun`.`groupUser`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `group_id` int NOT NULL COMMENT '群组编号',
+  `user_id` int NOT NULL COMMENT '用户id',
+  `群内名称` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL COMMENT '群内名称',
+  `oin_time` datetime NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '加入时间',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
+
+DROP TABLE IF EXISTS `user2`;
+CREATE TABLE `xingyuxingxun`.`user2`  (
+  `id` int NOT NULL AUTO_INCREMENT COMMENT '用户编号',
+  `account_id` int NOT NULL COMMENT '对应账号编号',
+  `pwd` varchar(20) CHARACTER SET utf8mb4 NOT NULL COMMENT '密码',
+  `real_name` varchar(50) NOT NULL COMMENT '真实姓名',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB CHARACTER SET = utf8mb4;
