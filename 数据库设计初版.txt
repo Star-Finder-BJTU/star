@@ -1,0 +1,99 @@
+针对于一款社交软件的设计，这里只是简单地设计了有关于用户信息，交友以及群组信息，群组成员等基本的表结构，后续我们会更新有关于更多联系着我们的应用特色的数据库表结构。
+首先是我们的用户信息表'user_info'，表里包含了用户的账号，密码，姓名，昵称，签名，邮箱以及头像，
+其次是一个交友的表结构'friend'，存放交友双方的账号。
+群组信息结构表‘group_info’，保存着群号，群主，群名，群描述及群头像的特征，后续我们可能会设计成更为富有星球特色的群组结构，并且赋予不同的星球群组不同的特色。
+群组及个人关联表结构‘group’，保存着群组群号与用户账号的对应关系。
+
+
+针对于一款社交软件的设计，这里只是简单地设计了有关于用户信息，交友以及群组信息，群组成员等基本的表结构，后续我们会更新有关于更多联系着我们的应用特色的数据库表结构。
+首先是我们的用户信息表'user_info'，表里包含了用户的账号，密码，姓名，昵称，签名，邮箱以及头像，
+其次是一个交友的表结构'friend'，存放交友双方的账号。
+群组信息结构表‘group_info’，保存着群号，群主，群名，群描述及群头像的特征，后续我们可能会设计成更为富有星球特色的群组结构，并且赋予不同的星球群组不同的特色。
+群组及个人关联表结构‘group’，保存着群组群号与用户账号的对应关系。
+
+CREATE TABLE user_info (
+  `id` INT NOT NULL PRIMARY KEY,
+  `password` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `user` VARCHAR(45) NULL,
+  `signature` VARCHAR(100) NULL,
+  `email` VARCHAR(45) NULL,
+  `icon` VARCHAR(45) NULL,)
+CREATE TABLE friend (
+  `id_my` INT NOT NULL PRIMARY KEY,
+  `id_friend` INT NOT NULL PRIMARY KEY,
+);
+CREATE TABLE group_info (
+  `group_id` INT NOT NULL PRIMARY KEY,
+  `owner` INT NOT NULL,
+  `group_name` VARCHAR(45) NULL,
+  `describe` VARCHAR(100) NULL,
+  `icon` VARCHAR(45) NULL,
+);
+CREATE TABLE group (
+  `id` INT NOT NULL PRIMARY KEY,
+  `group_id` INT NOT NULL PRIMARY KEY,
+);
+CREATE TABLE planet (
+  `pid` INT NOT NULL PRIMARY KEY,
+  `pname` VARCHAR(45) NULL,
+);
+
+CREATE TABLE Earth(
+  `id` INT NOT NULL PRIMARY KEY,
+  `egroup_id` INT NOT NULL PRIMARY KEY,
+  `eowner` INT NOT NULL,
+  `egroup_name` VARCHAR(45) NULL,
+  `edescribe` VARCHAR(100) NULL,
+  `eicon` VARCHAR(45) NULL,
+);
+
+CREATE TABLE Saturn(
+  `id` INT NOT NULL PRIMARY KEY,
+  `sgroup_id` INT NOT NULL PRIMARY KEY,
+  `sowner` INT NOT NULL,
+  `sgroup_name` VARCHAR(45) NULL,
+  `sdescribe` VARCHAR(100) NULL,
+  `sicon` VARCHAR(45) NULL,
+  `spicture_id` INT NOT NULL,
+  `ssender` VARCHAR(45) NULL,
+);
+CREATE TABLE Mercury(
+  `id` INT NOT NULL PRIMARY KEY,
+  `mgroup_id` INT NOT NULL PRIMARY KEY,
+  `mowner` INT NOT NULL,
+  `mgroup_name` VARCHAR(45) NULL,
+  `mdescribe` VARCHAR(100) NULL,
+  `micon` VARCHAR(45) NULL,
+  `mtopic` VARCHAR(45) NULL,
+);
+CREATE TABLE Venus(
+  `id` INT NOT NULL PRIMARY KEY,
+  `vgroup_id` INT NOT NULL PRIMARY KEY,
+  `vgroup_name` VARCHAR(45) NULL,
+  `vgame_name` VARCHAR(45) NULL,
+);
+CREATE TABLE user_info (
+  `id` INT NOT NULL PRIMARY KEY,
+  `password` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `user` VARCHAR(45) NULL,
+  `signature` VARCHAR(100) NULL,
+  `email` VARCHAR(45) NULL,
+  `icon` VARCHAR(45) NULL,)
+CREATE TABLE friend (
+  `id_my` INT NOT NULL PRIMARY KEY,
+  `id_friend` INT NOT NULL PRIMARY KEY,
+);
+CREATE TABLE group_info (
+  `group_id` INT NOT NULL PRIMARY KEY,
+  `owner` INT NOT NULL,
+  `group_name` VARCHAR(45) NULL,
+  `describe` VARCHAR(100) NULL,
+  `icon` VARCHAR(45) NULL,
+);
+CREATE TABLE group (
+  `id` INT NOT NULL PRIMARY KEY,
+  `group_id` INT NOT NULL PRIMARY KEY,
+);
+
